@@ -1,0 +1,2904 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>양화영 · Full-Stack Developer Portfolio</title>
+<meta name="description" content="레거시와 신규 시스템을 함께 다루는 풀스택 개발자 양화영의 포트폴리오" />
+
+<!--
+  Version reference (실서비스 차세대 시스템 기준)
+  Java 17 / Spring Boot 3.5 / React 18.3 / TypeScript 5.8 / Gradle
+  - 부트캠프 meet U 프로젝트는 Spring Boot 3.1 (당시 시점 버전)
+-->
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="apple-touch-icon" href="favicon.svg" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400;1,500&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+:root {
+  --bg: #FAFAF7;
+  --bg-elev: #FFFFFF;
+  --bg-muted: #F2F1EC;
+  --bg-deep: #1A1A1A;
+  --ink: #1A1A1A;
+  --ink-soft: #4A4A4A;
+  --ink-muted: #8A8A85;
+  --line: #E5E3DC;
+  --line-strong: #C9C6BC;
+  --accent: #0D7377;
+  --accent-soft: #DCEEEA;
+  --accent-deep: #064D50;
+  --accent-glow: rgba(13, 115, 119, 0.12);
+  --font-sans: 'IBM Plex Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-serif: 'IBM Plex Serif', Georgia, serif;
+  --font-mono: 'JetBrains Mono', 'Courier New', monospace;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --max-w: 1180px;
+  --side-w: 240px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+img, svg, video, iframe { max-width: 100%; height: auto; }
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.6;
+  font-size: 15px;
+  letter-spacing: -0.005em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  mix-blend-mode: multiply;
+}
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--accent); color: #fff; }
+
+.layout {
+  display: grid;
+  grid-template-columns: var(--side-w) 1fr;
+  gap: 64px;
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 0 32px;
+}
+
+.sidebar {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  padding: 64px 0 32px;
+  display: flex;
+  flex-direction: column;
+}
+.brand { margin-bottom: 48px; }
+.brand-mark {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.brand-name {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+.brand-name em { font-style: italic; color: var(--accent); }
+
+.nav { list-style: none; display: flex; flex-direction: column; gap: 2px; margin-bottom: auto; }
+.nav a {
+  display: flex; align-items: center; gap: 14px;
+  padding: 8px 0; font-size: 13px;
+  color: var(--ink-soft); font-weight: 500;
+  letter-spacing: 0.02em;
+  transition: color 0.3s var(--ease);
+  position: relative;
+}
+.nav a::before {
+  content: ''; width: 16px; height: 1px;
+  background: var(--line-strong);
+  transition: width 0.3s var(--ease), background 0.3s var(--ease);
+}
+.nav a:hover, .nav a.active { color: var(--ink); }
+.nav a:hover::before, .nav a.active::before { width: 28px; background: var(--accent); }
+.nav-num { font-family: var(--font-mono); font-size: 10px; color: var(--ink-muted); margin-right: -8px; }
+
+.sidebar-footer {
+  font-family: var(--font-mono);
+  font-size: 10px; color: var(--ink-muted);
+  letter-spacing: 0.08em; line-height: 1.6;
+}
+.sidebar-footer .status {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--accent); margin-bottom: 8px;
+}
+.status-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 2s infinite var(--ease);
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.main { padding: 64px 0 128px; min-width: 0; }
+section { scroll-margin-top: 32px; padding: 80px 0; border-top: 1px solid var(--line); }
+section:first-of-type { padding-top: 0; border-top: none; }
+
+.section-label { display: flex; align-items: baseline; gap: 16px; margin-bottom: 40px; font-family: var(--font-mono); }
+.section-num { font-size: 11px; color: var(--ink-muted); letter-spacing: 0.12em; }
+.section-title {
+  font-size: 12px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--ink); font-weight: 600;
+}
+
+/* HERO */
+.hero { padding: 120px 0 0 !important; border-top: none !important; }
+.hero-tag {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.14em; color: var(--accent-deep);
+  background: var(--accent-soft);
+  padding: 6px 14px; border-radius: 100px;
+  margin-bottom: 32px; text-transform: uppercase;
+}
+.hero-tag::before {
+  content: ''; width: 5px; height: 5px;
+  border-radius: 50%; background: var(--accent);
+  animation: pulse 2s infinite var(--ease);
+}
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(40px, 6vw, 68px);
+  line-height: 1.05; letter-spacing: -0.025em;
+  font-weight: 500; margin-bottom: 24px; max-width: 880px;
+  word-break: keep-all;
+}
+.hero-title em { font-style: italic; color: var(--accent); font-weight: 400; }
+.hero-title .underline { position: relative; white-space: nowrap; }
+.hero-title .underline::after {
+  content: ''; position: absolute;
+  left: 0; right: 0; bottom: 4px;
+  height: 6px; background: var(--accent-soft); z-index: -1;
+}
+.hero-sub {
+  font-size: 17px; color: var(--ink-soft);
+  max-width: 600px; margin-bottom: 56px; line-height: 1.7;
+  word-break: keep-all;
+}
+
+.hero-metrics {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--line-strong);
+  border-bottom: 1px solid var(--line-strong);
+  margin-bottom: 48px;
+}
+.hero-metric {
+  padding: 28px 0;
+  border-right: 1px solid var(--line);
+  position: relative;
+  transition: background 0.3s var(--ease);
+}
+.hero-metric:hover { background: var(--accent-glow); }
+.hero-metric:last-child { border-right: none; }
+
+/* Hero metric hover details */
+.hero-metric .metric-num {
+  transition: transform 0.35s var(--ease);
+  display: block;
+}
+.hero-metric:hover .metric-num {
+  transform: translateY(-2px);
+}
+.hero-metric .metric-num .unit {
+  transition: color 0.3s var(--ease);
+}
+.hero-metric:hover .metric-num .unit {
+  color: var(--accent-deep);
+}
+.hero-metric .metric-label {
+  transition: color 0.3s var(--ease);
+}
+.hero-metric:hover .metric-label {
+  color: var(--ink-soft);
+}
+
+.hero-metric.has-tooltip { cursor: help; }
+.hero-metric.has-tooltip .metric-label::after {
+  content: '?';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 13px; height: 13px;
+  border: 1px solid var(--ink-muted);
+  border-radius: 50%;
+  font-size: 9px;
+  color: var(--ink-muted);
+  margin-left: 6px;
+  font-weight: 600;
+  vertical-align: 1px;
+  transition: all 0.25s var(--ease);
+}
+.hero-metric.has-tooltip:hover .metric-label::after {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.metric-tooltip {
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-8px);
+  width: 320px;
+  max-width: calc(100vw - 32px);
+  background: var(--ink);
+  color: var(--bg);
+  padding: 16px 18px;
+  border-radius: var(--radius-md);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
+  z-index: 50;
+  box-shadow: 0 12px 32px -8px rgba(0, 0, 0, 0.25);
+  text-align: left;
+}
+.metric-tooltip::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-bottom-color: var(--ink);
+}
+.hero-metric.has-tooltip:hover .metric-tooltip {
+  opacity: 1;
+  pointer-events: all;
+  transform: translateX(-50%) translateY(0);
+}
+.tooltip-title {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+.tooltip-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.tooltip-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 12px;
+  line-height: 1.4;
+}
+.tooltip-item strong {
+  color: var(--bg);
+  font-weight: 600;
+  font-size: 12.5px;
+}
+.tooltip-item span {
+  color: var(--line-strong);
+  font-size: 11px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.02em;
+}
+.metric-num {
+  font-family: var(--font-mono);
+  font-size: 36px; font-weight: 700;
+  letter-spacing: -0.03em; color: var(--ink);
+  line-height: 1; margin-bottom: 8px;
+}
+.metric-num .unit { font-size: 18px; color: var(--accent); font-weight: 500; margin-left: 2px; }
+.metric-num .plus { color: var(--accent); font-weight: 700; }
+.metric-label {
+  font-family: var(--font-mono);
+  font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--ink-muted);
+}
+
+.hero-meta { display: flex; flex-wrap: wrap; gap: 24px 40px; padding-bottom: 8px; }
+.meta-item { display: flex; flex-direction: column; gap: 4px; }
+.meta-label {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted);
+}
+.meta-value { font-size: 14px; font-weight: 500; color: var(--ink); }
+.meta-value.mono { font-family: var(--font-mono); font-size: 13px; }
+.meta-value a:hover { color: var(--accent); }
+
+/* ABOUT */
+.about-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 64px; align-items: start; }
+.about-lead {
+  font-family: var(--font-serif);
+  font-size: 22px; line-height: 1.5;
+  letter-spacing: -0.01em; color: var(--ink); font-weight: 400;
+}
+.about-lead em { font-style: italic; color: var(--accent); }
+.about-body { font-size: 15px; line-height: 1.75; color: var(--ink-soft); }
+.about-body p + p { margin-top: 16px; }
+.about-pillars {
+  display: grid; grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px; margin-top: 64px; padding-top: 48px;
+  border-top: 1px solid var(--line);
+}
+.pillar { position: relative; }
+.pillar-icon {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 20px;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: transform 0.5s var(--ease);
+}
+.pillar-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.pillar-icon::before {
+  content: '';
+  position: absolute;
+  inset: -8px;
+  background: var(--accent-soft);
+  border-radius: 50%;
+  opacity: 0;
+  transition: opacity 0.5s var(--ease);
+  z-index: -1;
+}
+.pillar:hover .pillar-icon { transform: translateY(-2px); }
+.pillar:hover .pillar-icon::before { opacity: 0.6; }
+
+/* Animated icon details */
+.icon-arrow-1 { transition: transform 0.6s var(--ease); }
+.icon-arrow-2 { transition: transform 0.6s var(--ease); }
+.pillar:hover .icon-arrow-1 { transform: translateX(2px); }
+.pillar:hover .icon-arrow-2 { transform: translateX(-2px); }
+
+.icon-node { transition: transform 0.5s var(--ease); transform-origin: center; }
+.pillar:hover .icon-node-1 { transform: scale(1.2); }
+.pillar:hover .icon-node-2 { transform: scale(1.2); }
+.pillar:hover .icon-node-3 { transform: scale(1.2); }
+
+.icon-bar { transition: transform 0.4s var(--ease); transform-origin: bottom; }
+.pillar:hover .icon-bar-1 { transform: scaleY(1.15); }
+.pillar:hover .icon-bar-2 { transform: scaleY(1.3); }
+.pillar:hover .icon-bar-3 { transform: scaleY(1.1); }
+.pillar:hover .icon-bar-4 { transform: scaleY(1.4); }
+.pillar:hover .icon-bar-5 { transform: scaleY(1.2); }
+
+.pillar-num { font-family: var(--font-mono); font-size: 11px; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 12px; }
+.pillar-title {
+  font-family: var(--font-serif); font-size: 18px;
+  font-weight: 500; margin-bottom: 8px; letter-spacing: -0.01em;
+}
+.pillar-desc { font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
+
+/* FEATURED CASES */
+.featured { background: var(--bg-muted); margin: 0 -32px; padding: 80px 32px; }
+@media (min-width: 961px) {
+  .featured {
+    margin: 0; padding: 80px 0;
+    background: transparent; position: relative;
+  }
+  .featured::before {
+    content: ''; position: absolute; inset: 0;
+    background: var(--bg-muted); z-index: -1;
+    margin-left: calc((100vw - var(--max-w)) / -2 + 32px);
+    margin-right: calc((100vw - var(--max-w)) / -2 + 32px);
+  }
+}
+
+.cases { display: flex; flex-direction: column; gap: 24px; }
+.case-card {
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  padding: 36px 40px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+.case-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px -12px rgba(13, 115, 119, 0.15);
+}
+.case-card::before {
+  content: ''; position: absolute;
+  top: 0; left: 0; width: 4px; height: 100%;
+  background: var(--accent);
+  transform: scaleY(0); transform-origin: top;
+  transition: transform 0.5s var(--ease);
+}
+.case-card:hover::before { transform: scaleY(1); }
+.case-header {
+  display: flex; justify-content: space-between;
+  align-items: flex-start; margin-bottom: 24px;
+  gap: 24px; flex-wrap: wrap;
+}
+.case-id {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--accent); padding: 4px 10px;
+  background: var(--accent-soft); border-radius: 3px;
+  white-space: nowrap;
+}
+.case-period {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--ink-muted); letter-spacing: 0.06em; white-space: nowrap;
+}
+.case-title {
+  font-family: var(--font-serif); font-size: 26px;
+  font-weight: 500; letter-spacing: -0.02em;
+  line-height: 1.25; margin-bottom: 12px;
+}
+.case-desc {
+  font-size: 14px; color: var(--ink-soft);
+  line-height: 1.7; margin-bottom: 28px; max-width: 720px;
+}
+
+.case-metrics {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  margin-bottom: 28px; overflow: hidden;
+}
+
+/* CASE VISUALIZATION (mini chart area) */
+.case-viz {
+  padding: 18px 24px;
+  background: var(--bg-muted);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  margin-bottom: 20px;
+  position: relative;
+}
+.case-viz-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.case-viz-label .highlight {
+  color: var(--accent);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+/* === Bar comparison chart (Case #01) === */
+.viz-bars { display: flex; flex-direction: column; gap: 10px; }
+.viz-bar-row {
+  display: grid;
+  grid-template-columns: 60px 1fr 70px;
+  gap: 14px;
+  align-items: center;
+}
+.viz-bar-name {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-soft);
+  letter-spacing: 0.04em;
+}
+.viz-bar-track {
+  height: 14px;
+  background: var(--bg-elev);
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.viz-bar-fill {
+  height: 100%;
+  background: var(--ink-muted);
+  width: 0;
+  transition: width 1.2s var(--ease);
+  border-radius: 1px;
+}
+.viz-bar-fill.accent {
+  background: var(--accent);
+  box-shadow: 0 0 0 1px var(--accent-deep) inset;
+}
+.viz-bar-value {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.viz-bar-value.accent { color: var(--accent); }
+
+/* === Sparkline / Line chart (Case #02) === */
+.viz-line {
+  position: relative;
+  height: 80px;
+  margin: 4px 0;
+}
+.viz-line svg { width: 100%; height: 100%; overflow: visible; }
+.viz-line-grid {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+  pointer-events: none;
+}
+.viz-line-grid span {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: var(--ink-muted);
+  letter-spacing: 0.04em;
+}
+.viz-line-marker {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 1px;
+  background: var(--accent);
+  opacity: 0.4;
+}
+.viz-line-marker::before {
+  content: 'Scale up';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  white-space: nowrap;
+  background: var(--bg-muted);
+  padding: 0 4px;
+}
+
+/* === Donut / Stat dots (Case #03) === */
+.viz-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+.viz-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.viz-donut {
+  position: relative;
+  width: 72px;
+  height: 72px;
+}
+.viz-donut svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+.viz-donut-track {
+  fill: none;
+  stroke: var(--line);
+  stroke-width: 6;
+}
+.viz-donut-fill {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-dasharray: 251.32; /* 2 * π * 40 */
+  stroke-dashoffset: 251.32;
+  transition: stroke-dashoffset 1.5s var(--ease);
+}
+.viz-donut-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+}
+.viz-donut-num {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1;
+}
+.viz-donut-unit {
+  font-size: 8px;
+  color: var(--ink-muted);
+  letter-spacing: 0.06em;
+  margin-top: 2px;
+}
+.viz-stat-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  text-align: center;
+  line-height: 1.4;
+}
+
+@media (max-width: 720px) {
+  /* iOS Safari zoom 방지 - 모바일에서 16px 기준 적용 */
+  body { font-size: 16px; }
+
+  .viz-stats { grid-template-columns: 1fr; gap: 18px; }
+  .viz-bar-row { grid-template-columns: 50px 1fr 60px; gap: 8px; }
+  .case-viz { padding: 16px 14px; }
+}
+.case-metric {
+  background: var(--bg-elev); padding: 20px 18px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.case-metric-label {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-muted);
+}
+.case-metric-comparison { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.case-metric-before {
+  font-family: var(--font-mono); font-size: 14px;
+  color: var(--ink-muted);
+  text-decoration: line-through;
+  text-decoration-color: var(--line-strong);
+  text-decoration-thickness: 1.5px;
+}
+.case-metric-arrow { color: var(--accent); font-family: var(--font-mono); font-size: 14px; font-weight: 700; }
+.case-metric-after {
+  font-family: var(--font-mono); font-size: 18px;
+  font-weight: 700; color: var(--accent); letter-spacing: -0.01em;
+}
+.case-metric.single .case-metric-after { font-size: 24px; }
+.case-metric.single .case-metric-after .small {
+  font-size: 12px; color: var(--ink-muted);
+  font-weight: 500; margin-left: 4px;
+}
+
+.case-footer {
+  display: flex; justify-content: space-between;
+  align-items: center; padding-top: 24px;
+  border-top: 1px solid var(--line);
+  flex-wrap: wrap; gap: 16px;
+}
+.case-stack { display: flex; flex-wrap: wrap; gap: 6px; }
+.case-stack .tag {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--ink-soft); padding: 3px 8px;
+  background: var(--bg-muted); border-radius: 3px;
+}
+.case-takeaway {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--accent-deep); font-weight: 500; letter-spacing: 0.04em;
+}
+
+/* SKILLS */
+.skills-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px 48px; }
+.skill-group { border-top: 1px solid var(--line-strong); padding-top: 20px; }
+.skill-group-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; }
+.skill-group-title {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted);
+}
+.skill-group-count {
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--accent); letter-spacing: 0.08em;
+}
+.skill-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.skill-tag {
+  font-family: var(--font-mono); font-size: 12px;
+  padding: 5px 10px; background: var(--bg-elev);
+  border: 1px solid var(--line); border-radius: var(--radius-sm);
+  color: var(--ink-soft); transition: all 0.25s var(--ease); cursor: default;
+}
+.skill-tag:hover {
+  background: var(--accent-soft); border-color: var(--accent);
+  color: var(--accent-deep); transform: translateY(-1px);
+}
+.skill-tag.primary {
+  background: var(--ink); color: var(--bg); border-color: var(--ink);
+}
+.skill-tag.primary:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* CAREER */
+.timeline { position: relative; }
+.timeline::before {
+  content: ''; position: absolute;
+  left: 11px; top: 8px; bottom: 8px; width: 1px;
+  background: var(--line-strong);
+}
+.career-item { display: grid; grid-template-columns: 32px 1fr; gap: 24px; padding-bottom: 40px; align-items: start; }
+.career-item:last-child { padding-bottom: 0; }
+.career-dot {
+  width: 24px; height: 24px; border-radius: 50%;
+  background: var(--bg); border: 2px solid var(--line-strong);
+  margin-top: 4px; position: relative; z-index: 1;
+  transition: all 0.3s var(--ease);
+}
+.career-item.current .career-dot {
+  border-color: var(--accent); background: var(--accent);
+  box-shadow: 0 0 0 4px var(--accent-soft);
+}
+.career-content { padding-top: 2px; }
+.career-period {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--ink-muted); letter-spacing: 0.06em; margin-bottom: 4px;
+}
+.career-period .badge {
+  display: inline-block; background: var(--accent); color: #fff;
+  padding: 2px 6px; border-radius: 3px; font-size: 9px;
+  letter-spacing: 0.1em; margin-left: 6px; vertical-align: 1px;
+}
+.career-company {
+  font-family: var(--font-serif); font-size: 22px;
+  font-weight: 500; letter-spacing: -0.01em; margin-bottom: 4px;
+}
+.career-company .sub {
+  font-size: 13px; color: var(--ink-muted);
+  font-family: var(--font-mono); font-weight: 400;
+}
+.career-role { font-size: 13px; color: var(--ink-soft); margin-bottom: 12px; }
+.career-summary { font-size: 14px; color: var(--ink-soft); line-height: 1.7; }
+
+/* PROJECTS */
+.projects-intro {
+  font-size: 14px; color: var(--ink-soft);
+  max-width: 600px; margin-bottom: 32px; line-height: 1.7;
+}
+.project-filters {
+  display: flex; gap: 4px; margin-bottom: 24px;
+  border-bottom: 1px solid var(--line); flex-wrap: wrap;
+}
+.filter-btn {
+  background: none; border: none; padding: 12px 16px;
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--ink-muted); cursor: pointer;
+  position: relative; transition: color 0.25s var(--ease); font-weight: 500;
+}
+.filter-btn::after {
+  content: ''; position: absolute;
+  left: 16px; right: 16px; bottom: -1px;
+  height: 2px; background: transparent;
+  transition: background 0.3s var(--ease);
+}
+.filter-btn:hover { color: var(--ink); }
+.filter-btn.active { color: var(--accent); }
+.filter-btn.active::after { background: var(--accent); }
+.filter-count { font-size: 9px; vertical-align: 4px; margin-left: 4px; opacity: 0.6; }
+
+.projects-list { display: flex; flex-direction: column; gap: 0; }
+.project {
+  display: grid;
+  grid-template-columns: 60px 1fr auto;
+  gap: 20px; padding: 18px 0;
+  border-bottom: 1px solid var(--line);
+  cursor: pointer;
+  transition: padding 0.3s var(--ease), background 0.3s var(--ease);
+  align-items: center;
+  position: relative;
+}
+.project:hover {
+  padding-left: 8px;
+  background: linear-gradient(90deg, var(--bg-muted) 0%, transparent 100%);
+}
+.project[data-hidden="true"] { display: none; }
+.project.active {
+  background: var(--accent-soft);
+  padding-left: 8px;
+}
+.project.active::after {
+  content: '';
+  position: absolute;
+  right: 0; top: 0; bottom: 0;
+  width: 2px;
+  background: var(--accent);
+}
+.project.featured-marker {
+  border-bottom-color: var(--accent-soft);
+}
+.project-num {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--ink-muted); letter-spacing: 0.08em;
+}
+.project.featured-marker .project-num { color: var(--accent); font-weight: 600; }
+.project-main { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.project-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.project-title {
+  font-family: var(--font-serif); font-size: 16px;
+  font-weight: 500; letter-spacing: -0.01em;
+  line-height: 1.3;
+  color: var(--ink);
+}
+.project-title .featured-tag {
+  display: inline-block; font-family: var(--font-mono);
+  font-size: 9px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent);
+  background: var(--accent-soft); padding: 2px 6px;
+  border-radius: 3px; margin-right: 6px;
+  vertical-align: 2px; font-weight: 600;
+}
+.project-meta {
+  display: flex; flex-wrap: wrap; gap: 4px 12px;
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--ink-muted); letter-spacing: 0.06em;
+}
+.project-meta span { display: inline-flex; align-items: center; gap: 5px; }
+.project-meta .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--line-strong); }
+.project-action {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--ink-muted); letter-spacing: 0.08em;
+  white-space: nowrap;
+  transition: color 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.project:hover .project-action,
+.project.active .project-action {
+  color: var(--accent);
+}
+.project:hover .project-action { transform: translateX(4px); }
+
+/* SIDE PANEL */
+.panel-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(26, 26, 26, 0);
+  pointer-events: none;
+  z-index: 100;
+  transition: background 0.4s var(--ease);
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+}
+.panel-overlay.open {
+  background: rgba(26, 26, 26, 0.4);
+  pointer-events: all;
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.side-panel {
+  position: fixed;
+  top: 0; right: 0;
+  width: 50%;
+  max-width: 720px;
+  height: 100vh;
+  background: var(--bg-elev);
+  z-index: 101;
+  transform: translateX(100%);
+  transition: transform 0.5s var(--ease), visibility 0s linear 0.5s;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -16px 0 48px -12px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  visibility: hidden;
+  pointer-events: none;
+}
+.side-panel.open {
+  transform: translateX(0);
+  visibility: visible;
+  pointer-events: auto;
+  transition: transform 0.5s var(--ease), visibility 0s linear 0s;
+}
+
+.panel-close {
+  position: absolute;
+  top: 24px; right: 24px;
+  width: 36px; height: 36px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: var(--ink-muted);
+  z-index: 1;
+  transition: all 0.25s var(--ease);
+}
+.panel-close:hover {
+  border-color: var(--ink);
+  color: var(--ink);
+  transform: rotate(90deg);
+}
+
+.panel-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 56px 56px 64px;
+  scroll-behavior: smooth;
+}
+.panel-content::-webkit-scrollbar { width: 6px; }
+.panel-content::-webkit-scrollbar-track { background: transparent; }
+.panel-content::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 3px;
+}
+.panel-content::-webkit-scrollbar-thumb:hover { background: var(--ink-muted); }
+
+.panel-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding: 4px 10px;
+  background: var(--accent-soft);
+  border-radius: 100px;
+  margin-bottom: 20px;
+}
+.panel-tag.gray {
+  color: var(--ink-muted);
+  background: var(--bg-muted);
+}
+
+.panel-title {
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  color: var(--ink);
+}
+
+.panel-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 32px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+}
+.panel-meta span { display: inline-flex; align-items: center; gap: 6px; }
+.panel-meta .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--line-strong); }
+
+.panel-section {
+  margin-bottom: 32px;
+}
+.panel-section:last-child { margin-bottom: 0; }
+
+.panel-section-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+  font-weight: 500;
+}
+
+.panel-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.panel-stack .tag {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-soft);
+  padding: 5px 10px;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  transition: all 0.2s var(--ease);
+}
+.panel-stack .tag:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.panel-roles {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.panel-role {
+  position: relative;
+  padding-left: 20px;
+  border-left: 2px solid var(--accent-soft);
+}
+.panel-role::before {
+  content: '';
+  position: absolute;
+  left: -5px; top: 4px;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+.panel-role h6 {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--ink);
+  margin-bottom: 10px;
+  letter-spacing: -0.01em;
+}
+.panel-role ul {
+  list-style: none;
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+.panel-role ul li {
+  position: relative;
+  padding-left: 14px;
+  margin-bottom: 4px;
+}
+.panel-role ul li::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 9px;
+  width: 6px; height: 1px;
+  background: var(--line-strong);
+}
+
+.panel-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 56px;
+  border-top: 1px solid var(--line);
+  background: var(--bg);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+.panel-nav-btn {
+  background: none;
+  border: none;
+  color: var(--ink-muted);
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-family: inherit;
+  font-size: inherit;
+  letter-spacing: inherit;
+  transition: color 0.25s var(--ease), background 0.25s var(--ease);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.panel-nav-btn:hover:not(:disabled) {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+.panel-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+.panel-nav-counter {
+  color: var(--ink-muted);
+}
+.panel-nav-counter strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* EDUCATION */
+.edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
+.edu-block h4 {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--ink-muted); margin-bottom: 20px;
+  padding-bottom: 12px; border-bottom: 1px solid var(--line); font-weight: 500;
+}
+.edu-item { padding: 12px 0; border-bottom: 1px solid var(--line); }
+.edu-item:last-child { border-bottom: none; }
+.edu-period {
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--ink-muted); letter-spacing: 0.06em; margin-bottom: 4px;
+}
+.edu-title { font-size: 14px; font-weight: 500; color: var(--ink); margin-bottom: 2px; }
+.edu-org { font-size: 12px; color: var(--ink-soft); }
+.edu-extra {
+  font-family: var(--font-mono); font-size: 11px;
+  color: var(--accent); margin-top: 4px;
+}
+
+/* CONTACT */
+.contact { text-align: center; padding: 120px 0 64px !important; }
+.contact-tag {
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 24px;
+}
+.contact-title {
+  font-family: var(--font-serif);
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 1.15; letter-spacing: -0.02em;
+  font-weight: 500; margin-bottom: 32px;
+}
+.contact-title em { font-style: italic; color: var(--accent); }
+.contact-links {
+  display: inline-flex; flex-direction: column;
+  gap: 8px; margin-top: 32px; text-align: left;
+}
+.contact-link {
+  display: grid; grid-template-columns: 80px 1fr;
+  gap: 24px; padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px; align-items: center;
+  transition: background 0.25s var(--ease);
+  border-radius: var(--radius-sm); min-width: 360px;
+}
+.contact-link:hover { background: var(--bg-muted); }
+.contact-link .label {
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-muted);
+}
+.contact-link .value { font-family: var(--font-mono); font-size: 13px; color: var(--ink); }
+.contact-link[href]:hover .value { color: var(--accent); }
+
+footer {
+  padding: 48px 0 24px; text-align: center;
+  font-family: var(--font-mono); font-size: 10px;
+  color: var(--ink-muted); letter-spacing: 0.1em;
+  border-top: 1px solid var(--line); margin-top: 64px;
+}
+footer .ascii {
+  margin-bottom: 12px; white-space: pre;
+  line-height: 1.2; color: var(--line-strong); font-size: 8px;
+}
+
+/* ANIMATIONS */
+.reveal {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.8s var(--ease), transform 0.8s var(--ease);
+}
+.reveal.in { opacity: 1; transform: translateY(0); }
+.reveal-stagger > * {
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+}
+.reveal-stagger.in > *:nth-child(1) { transition-delay: 0.05s; }
+.reveal-stagger.in > *:nth-child(2) { transition-delay: 0.10s; }
+.reveal-stagger.in > *:nth-child(3) { transition-delay: 0.15s; }
+.reveal-stagger.in > *:nth-child(4) { transition-delay: 0.20s; }
+.reveal-stagger.in > *:nth-child(5) { transition-delay: 0.25s; }
+.reveal-stagger.in > *:nth-child(6) { transition-delay: 0.30s; }
+.reveal-stagger.in > *:nth-child(7) { transition-delay: 0.35s; }
+.reveal-stagger.in > *:nth-child(8) { transition-delay: 0.40s; }
+.reveal-stagger.in > *:nth-child(9) { transition-delay: 0.45s; }
+.reveal-stagger.in > *:nth-child(10) { transition-delay: 0.50s; }
+.reveal-stagger.in > *:nth-child(11) { transition-delay: 0.55s; }
+.reveal-stagger.in > * { opacity: 1; transform: translateY(0); }
+
+/* BEYOND WORK */
+.beyond-card {
+  background: var(--bg-elev);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  margin-bottom: 24px;
+  transition: border-color 0.3s var(--ease), box-shadow 0.3s var(--ease);
+}
+.beyond-card:hover {
+  border-color: var(--line-strong);
+  box-shadow: 0 8px 32px -12px rgba(0, 0, 0, 0.08);
+}
+.beyond-card:last-child { margin-bottom: 0; }
+
+.beyond-header {
+  padding: 32px 36px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.beyond-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  padding: 4px 10px;
+  background: var(--bg-muted);
+  border-radius: 3px;
+  white-space: nowrap;
+}
+.beyond-period {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-muted);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+.beyond-title {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 16px 36px 0;
+}
+.beyond-subtitle {
+  font-size: 14px;
+  color: var(--ink-soft);
+  margin: 8px 36px 24px;
+  line-height: 1.6;
+  max-width: 720px;
+}
+
+.beyond-arch {
+  background: var(--bg);
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 24px 36px;
+  margin: 0;
+}
+.beyond-arch-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 12px;
+}
+.beyond-arch img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: var(--radius-sm);
+}
+
+.beyond-body {
+  padding: 28px 36px 32px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+.beyond-block h5 {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 12px;
+  font-weight: 500;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--line);
+}
+
+.beyond-roles {
+  list-style: none;
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.6;
+}
+.beyond-roles li {
+  position: relative;
+  padding-left: 16px;
+  margin-bottom: 10px;
+}
+.beyond-roles li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 8px;
+  height: 1px;
+  background: var(--accent);
+}
+.beyond-roles li strong {
+  color: var(--ink);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 2px;
+  font-size: 13.5px;
+}
+
+.beyond-info {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.beyond-info-row {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  gap: 12px;
+  align-items: baseline;
+  font-size: 13px;
+}
+.beyond-info-row .key {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+.beyond-info-row .val {
+  color: var(--ink-soft);
+  line-height: 1.5;
+}
+.beyond-info-row .val a {
+  color: var(--accent);
+  border-bottom: 1px dashed var(--accent);
+  transition: opacity 0.25s var(--ease);
+  word-break: break-all;
+}
+.beyond-info-row .val a:hover { opacity: 0.7; }
+
+.beyond-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.beyond-stack .tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-soft);
+  padding: 3px 7px;
+  background: var(--bg-muted);
+  border-radius: 3px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 960px) {
+  .layout { grid-template-columns: 1fr; gap: 0; padding: 0 24px; }
+  .sidebar {
+    position: static; height: auto;
+    padding: 32px 0 24px;
+    border-bottom: 1px solid var(--line); margin-bottom: 32px;
+  }
+  .nav { flex-direction: row; flex-wrap: wrap; gap: 4px 16px; }
+  .nav a::before { display: none; }
+  .nav a { padding: 6px 0; font-size: 12px; }
+  .nav-num { display: none; }
+  .sidebar-footer { display: none; }
+
+  .main { padding: 0 0 96px; }
+  .hero { padding: 48px 0 0 !important; }
+  section { padding: 64px 0; }
+
+  .hero-metrics { grid-template-columns: repeat(3, 1fr); }
+  .hero-metric { border-right: 1px solid var(--line); }
+  .hero-metric:last-child { border-right: none; }
+  .metric-num { font-size: 24px; }
+  .metric-tooltip { width: 280px; font-size: 11px; }
+
+  .about-grid { grid-template-columns: 1fr; gap: 32px; }
+  .about-pillars { grid-template-columns: 1fr; gap: 24px; }
+  .skills-grid { grid-template-columns: 1fr; gap: 28px; }
+
+  .case-card { padding: 28px 24px; }
+  .case-title { font-size: 22px; }
+  .case-metrics { grid-template-columns: 1fr; }
+  .case-metric { border-bottom: 1px solid var(--line); }
+  .case-metric:last-child { border-bottom: none; }
+
+  .project { grid-template-columns: 50px 1fr; gap: 12px; }
+  .project-action { display: none; }
+
+  .side-panel { width: 100%; max-width: 100%; }
+  .panel-content { padding: 56px 24px 32px; }
+  .panel-nav { padding: 16px 24px; }
+  .panel-title { font-size: 24px; }
+
+  .edu-grid { grid-template-columns: 1fr; gap: 32px; }
+  .hero-meta { gap: 16px 32px; }
+  .contact-link { min-width: auto; width: 100%; grid-template-columns: 70px 1fr; }
+
+  .beyond-header { padding: 24px 24px 0; }
+  .beyond-title { margin: 14px 24px 0; font-size: 22px; }
+  .beyond-subtitle { margin: 8px 24px 20px; }
+  .beyond-arch { padding: 16px 24px; }
+  .beyond-body { padding: 24px; grid-template-columns: 1fr; gap: 24px; }
+}
+
+@media (max-width: 520px) {
+  .hero-title { font-size: 36px; }
+  .about-lead { font-size: 18px; }
+  .career-company { font-size: 18px; }
+  .project-title { font-size: 15px; }
+  .case-header { flex-direction: column; gap: 8px; }
+}
+
+@media (max-width: 380px) {
+  /* 매우 작은 화면 (iPhone SE 1세대 등) 대응 */
+  .container { padding: 0 16px; }
+  .hero-title { font-size: 30px; }
+  .metric-num { font-size: 22px; }
+  .case-title { font-size: 20px; }
+  .case-card { padding: 24px 18px; }
+  .viz-bar-row { grid-template-columns: 44px 1fr 56px; gap: 6px; }
+  .viz-bar-name { font-size: 10px; }
+  .viz-bar-value { font-size: 11px; }
+  .pillar-title { font-size: 17px; }
+}
+
+@media print {
+  .sidebar, .project-action, .project-filters { display: none; }
+  body::before { display: none; }
+  .layout { grid-template-columns: 1fr; }
+  section { page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">Portfolio · 2026</div>
+      <h1 class="brand-name">양화영<br /><em>Full-Stack</em></h1>
+    </div>
+    <nav>
+      <ul class="nav">
+        <li><a href="#about" data-section="about"><span class="nav-num">01</span> About</a></li>
+        <li><a href="#cases" data-section="cases"><span class="nav-num">02</span> Featured</a></li>
+        <li><a href="#skills" data-section="skills"><span class="nav-num">03</span> Skills</a></li>
+        <li><a href="#career" data-section="career"><span class="nav-num">04</span> Career</a></li>
+        <li><a href="#projects" data-section="projects"><span class="nav-num">05</span> Projects</a></li>
+        <li><a href="#beyond" data-section="beyond"><span class="nav-num">06</span> Beyond</a></li>
+        <li><a href="#education" data-section="education"><span class="nav-num">07</span> Education</a></li>
+        <li><a href="#contact" data-section="contact"><span class="nav-num">08</span> Contact</a></li>
+      </ul>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="status">
+        <span class="status-dot"></span>
+        <span>Open to next chapter</span>
+      </div>
+      Last updated · 2026.05
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="reveal">
+        <div class="hero-tag">Full-Stack · <span id="heroTagYears">4</span> yrs · Data-driven</div>
+        <h2 class="hero-title">
+          레거시부터<br />
+          차세대 시스템까지,<br />
+          환경을 가리지 <em>않는</em><br />
+          <span class="underline">풀스택 개발자</span>입니다.
+        </h2>
+        <p class="hero-sub">
+          UI부터 백엔드, 인프라 운영까지 서비스 전체 흐름을 책임지며,
+          PHP 5.5 레거시부터 Spring Boot · React 신규 시스템까지
+          이종 환경을 아우르는 <span id="heroBodyYears">4</span>년차 풀스택 개발자입니다.
+        </p>
+      </div>
+
+      <div class="hero-metrics reveal-stagger">
+        <div class="hero-metric">
+          <div class="metric-num"><span id="heroYears">4</span><span class="unit">yrs</span></div>
+          <div class="metric-label">실무 경력</div>
+        </div>
+        <div class="hero-metric">
+          <div class="metric-num"><span data-count-target="12">12</span><span class="unit">개</span></div>
+          <div class="metric-label">참여 프로젝트</div>
+        </div>
+        <div class="hero-metric has-tooltip">
+          <div class="metric-num"><span data-count-target="3">3</span><span class="unit">개</span></div>
+          <div class="metric-label">도메인 경험</div>
+          <div class="metric-tooltip">
+            <div class="tooltip-title">Domain Experience</div>
+            <ul class="tooltip-list">
+              <li class="tooltip-item">
+                <strong>의료 CRM 시스템</strong>
+                <span>레거시 + 차세대 + AI 챗봇</span>
+              </li>
+              <li class="tooltip-item">
+                <strong>Azure 클라우드 운영</strong>
+                <span>Billing Portal (Terrace)</span>
+              </li>
+              <li class="tooltip-item">
+                <strong>Microsoft 365 솔루션</strong>
+                <span>Teams · Outlook · SharePoint</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-meta reveal">
+        <div class="meta-item">
+          <span class="meta-label">Email</span>
+          <span class="meta-value mono"><a href="mailto:illu9856@gmail.com">illu9856@gmail.com</a></span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">GitHub</span>
+          <span class="meta-value mono"><a href="https://github.com/000flag" target="_blank" rel="noopener">@000flag ↗</a></span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Status</span>
+          <span class="meta-value">Open to next chapter</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="section-label">
+        <span class="section-num">01</span>
+        <span class="section-title">About</span>
+      </div>
+      <div class="about-grid reveal">
+        <div class="about-lead">
+          웹 서비스의 <em>UI부터 인프라 운영까지</em>,
+          서비스 전체 흐름을 책임지는 풀스택 개발자입니다.
+        </div>
+        <div class="about-body">
+          <p>자이소프트와 티디지에서 약 3년간 Microsoft Teams · Outlook 기반 엔터프라이즈 솔루션을 개발하며 React + SPFx, .NET, MS Graph API, Azure 환경에서 복합 시스템을 다루는 역량을 쌓았습니다.</p>
+          <p>이후 의료 도메인 기업 ㈜316존으로 이직하여 PHP 5.5 기반 레거시 시스템 유지보수와 Spring Boot · React 기반 차세대 시스템 신규 구축을 동시에 담당하며, 이종 환경을 모두 아우를 수 있는 개발자로 자리 잡았습니다.</p>
+        </div>
+      </div>
+
+      <div class="about-pillars reveal-stagger">
+        <div class="pillar">
+          <div class="pillar-icon" aria-hidden="true">
+            <svg viewBox="0 0 36 36">
+              <!-- Legacy ↔ Modern: two squares with bidirectional arrows -->
+              <rect x="2" y="10" width="10" height="16" rx="1.5"/>
+              <rect x="24" y="10" width="10" height="16" rx="1.5"/>
+              <!-- Top arrow: left to right -->
+              <line class="icon-arrow-1" x1="14" y1="15" x2="22" y2="15"/>
+              <polyline class="icon-arrow-1" points="20,13 22,15 20,17"/>
+              <!-- Bottom arrow: right to left -->
+              <line class="icon-arrow-2" x1="22" y1="21" x2="14" y2="21"/>
+              <polyline class="icon-arrow-2" points="16,19 14,21 16,23"/>
+            </svg>
+          </div>
+          <div class="pillar-num">01 / Legacy ↔ Modern</div>
+          <h3 class="pillar-title">레거시와 신규 시스템 동시 운영</h3>
+          <p class="pillar-desc">PHP 5.5부터 Spring Boot까지, .NET·Azure부터 AWS·Linux까지 폭넓은 환경에서 안정적으로 기능을 구현합니다.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon" aria-hidden="true">
+            <svg viewBox="0 0 36 36">
+              <!-- Integration: 3 nodes with connecting lines forming a triangle network -->
+              <line x1="6" y1="10" x2="18" y2="22"/>
+              <line x1="30" y1="10" x2="18" y2="22"/>
+              <line x1="6" y1="10" x2="30" y2="10"/>
+              <circle class="icon-node icon-node-1" cx="6" cy="10" r="3" fill="var(--bg)"/>
+              <circle class="icon-node icon-node-2" cx="30" cy="10" r="3" fill="var(--bg)"/>
+              <circle class="icon-node icon-node-3" cx="18" cy="22" r="3.5" fill="var(--bg)"/>
+              <!-- center filled dot for emphasis -->
+              <circle cx="18" cy="22" r="1.5" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+          <div class="pillar-num">02 / Integration</div>
+          <h3 class="pillar-title">이종 시스템 통합과 데이터 정합성</h3>
+          <p class="pillar-desc">MySQL ↔ MSSQL 동기화, 외부 API 연동, 마이그레이션 등 복잡한 데이터 흐름을 안정적으로 다룹니다.</p>
+        </div>
+        <div class="pillar">
+          <div class="pillar-icon" aria-hidden="true">
+            <svg viewBox="0 0 36 36">
+              <!-- Data-driven: bar chart with mini trend line -->
+              <line x1="3" y1="30" x2="33" y2="30"/>
+              <rect class="icon-bar icon-bar-1" x="5" y="22" width="4" height="8" fill="currentColor" stroke="none" opacity="0.45"/>
+              <rect class="icon-bar icon-bar-2" x="11" y="17" width="4" height="13" fill="currentColor" stroke="none" opacity="0.6"/>
+              <rect class="icon-bar icon-bar-3" x="17" y="20" width="4" height="10" fill="currentColor" stroke="none" opacity="0.5"/>
+              <rect class="icon-bar icon-bar-4" x="23" y="13" width="4" height="17" fill="currentColor" stroke="none" opacity="0.85"/>
+              <rect class="icon-bar icon-bar-5" x="29" y="9" width="4" height="21" fill="currentColor" stroke="none"/>
+            </svg>
+          </div>
+          <div class="pillar-num">03 / Data-driven</div>
+          <h3 class="pillar-title">데이터 기반 의사결정</h3>
+          <p class="pillar-desc">CPU 모니터링, 운영 이슈 진단, 스케일업 결정 등 데이터로 판단하고 행동에 옮기는 운영 감각을 갖췄습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURED CASES -->
+    <section id="cases" class="featured">
+      <div class="section-label">
+        <span class="section-num">02</span>
+        <span class="section-title">Featured Cases · Before / After</span>
+      </div>
+
+      <p class="projects-intro reveal" style="margin-bottom:40px;">
+        측정 가능한 결과로 입증한 핵심 프로젝트 3건. 단순 기능 구현이 아닌,
+        문제를 데이터로 진단하고 개선까지 책임진 작업들을 정리했습니다.
+      </p>
+
+      <div class="cases reveal-stagger">
+
+        <article class="case-card">
+          <header class="case-header">
+            <span class="case-id">Case #01 · Operations Automation</span>
+            <span class="case-period">2025.06 — 현재</span>
+          </header>
+          <h3 class="case-title">일일 매출마감 시스템 자동화</h3>
+          <p class="case-desc">
+            의료 클리닉의 일일 마감 업무는 담당자 2명이 매일 퇴근 후 1시간 이상 수작업으로 처리하던 영역.
+            1인 단독 개발로 MSSQL CTE를 활용한 쿼리 최적화와 Excel 자동 생성 시스템을 신규 구축하여,
+            전체 마감 업무를 5분 이내로 단축하고 담당자 운영 부담을 제거했습니다.
+          </p>
+
+          <div class="case-viz" data-viz="bars">
+            <div class="case-viz-label">
+              <span>처리 시간 비교 (분)</span>
+              <span class="highlight">▼ 92% 단축</span>
+            </div>
+            <div class="viz-bars">
+              <div class="viz-bar-row">
+                <span class="viz-bar-name">Before</span>
+                <div class="viz-bar-track">
+                  <div class="viz-bar-fill" data-target="100"></div>
+                </div>
+                <span class="viz-bar-value">60분+</span>
+              </div>
+              <div class="viz-bar-row">
+                <span class="viz-bar-name">After</span>
+                <div class="viz-bar-track">
+                  <div class="viz-bar-fill accent" data-target="8"></div>
+                </div>
+                <span class="viz-bar-value accent">5분</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-metrics">
+            <div class="case-metric">
+              <span class="case-metric-label">소요 시간</span>
+              <div class="case-metric-comparison">
+                <span class="case-metric-before">1시간+</span>
+                <span class="case-metric-arrow">→</span>
+                <span class="case-metric-after">5분 이내</span>
+              </div>
+            </div>
+            <div class="case-metric">
+              <span class="case-metric-label">운영 부담</span>
+              <div class="case-metric-comparison">
+                <span class="case-metric-before">2명 수작업</span>
+                <span class="case-metric-arrow">→</span>
+                <span class="case-metric-after">자동화</span>
+              </div>
+            </div>
+            <div class="case-metric single">
+              <span class="case-metric-label">개발 인원</span>
+              <div class="case-metric-comparison">
+                <span class="case-metric-after">1인 단독 진행</span>
+              </div>
+            </div>
+          </div>
+          <footer class="case-footer">
+            <div class="case-stack">
+              <span class="tag">PHP 5.5</span>
+              <span class="tag">MSSQL CTE</span>
+              <span class="tag">Excel Export</span>
+              <span class="tag">jQuery</span>
+            </div>
+            <span class="case-takeaway">→ 약 92% 시간 단축 · 휴먼 에러 제거</span>
+          </footer>
+        </article>
+        <article class="case-card">
+          <header class="case-header">
+            <span class="case-id">Case #02 · Cost Optimization</span>
+            <span class="case-period">2026.03</span>
+          </header>
+          <h3 class="case-title">AI 챗봇 인프라 비용 최적화 + 운영 환경 일원화</h3>
+          <p class="case-desc">
+            이전에 도입된 AI 챗봇이 권장 사양 g5.2xlarge로 운영되며 AWS 과금 부담이 누적되던 상황.
+            Slack Webhook으로 수집한 트래픽 모니터링 데이터를 분석해 권장 사양 대비 현저히 낮은 사용률을 확인한 후, 단계적 스케일다운 검증을 통해 적정 사양을 도출했습니다.
+            동시에 개발팀 인력 대비 이종 환경(전자정부프레임워크 + JSP) 운영 부담이 크다고 판단해, 사내 표준 환경으로 컨버팅하여 관리 포인트를 일원화했습니다.
+          </p>
+
+          <div class="case-viz" data-viz="bars">
+            <div class="case-viz-label">
+              <span>월 인스턴스 비용 비교 (USD 기준)</span>
+              <span class="highlight">▼ 89% 절감</span>
+            </div>
+            <div class="viz-bars">
+              <div class="viz-bar-row">
+                <span class="viz-bar-name">권장</span>
+                <div class="viz-bar-track">
+                  <div class="viz-bar-fill" data-target="100"></div>
+                </div>
+                <span class="viz-bar-value">g5.2xlarge</span>
+              </div>
+              <div class="viz-bar-row">
+                <span class="viz-bar-name">1차 시도</span>
+                <div class="viz-bar-track">
+                  <div class="viz-bar-fill" data-target="6"></div>
+                </div>
+                <span class="viz-bar-value">t3.large<br><span style="font-size:9px;opacity:0.7;">⚠ 응답 지연</span></span>
+              </div>
+              <div class="viz-bar-row">
+                <span class="viz-bar-name">최종</span>
+                <div class="viz-bar-track">
+                  <div class="viz-bar-fill accent" data-target="11"></div>
+                </div>
+                <span class="viz-bar-value accent">c6i.xlarge</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="case-metrics">
+            <div class="case-metric single">
+              <span class="case-metric-label">비용 절감</span>
+              <div class="case-metric-comparison">
+                <span class="case-metric-after">약 89<span class="small">%</span></span>
+              </div>
+            </div>
+            <div class="case-metric single">
+              <span class="case-metric-label">응답 속도</span>
+              <div class="case-metric-comparison">
+                <span class="case-metric-after">5초 내</span>
+              </div>
+            </div>
+            <div class="case-metric single">
+              <span class="case-metric-label">운영 환경</span>
+              <div class="case-metric-comparison">
+                <span class="case-metric-after">이종 2개 <span class="small">→ 사내 표준 통합</span></span>
+              </div>
+            </div>
+          </div>
+
+          <footer class="case-footer">
+            <div class="case-stack">
+              <span class="tag">AWS EC2</span>
+              <span class="tag">PHP 5.5</span>
+              <span class="tag">MySQL 5.5</span>
+              <span class="tag">Cafe24 Hosting</span>
+              <span class="tag">Slack Webhook</span>
+            </div>
+            <span class="case-takeaway">→ 약 89% 비용 절감 · 응답 5초 내 유지</span>
+          </footer>
+        </article>
+        <article class="case-card">
+          <header class="case-header">
+            <span class="case-id">Case #03 · Legacy → Modern Migration</span>
+            <span class="case-period">2025.06 — 2025.11</span>
+          </header>
+          <h3 class="case-title">PHP 5.5 → Spring Boot · React 차세대 시스템 구축</h3>
+          <p class="case-desc">
+            기존 PHP 시스템을 Spring Boot 백엔드 + React + TypeScript 프론트엔드로
+            새롭게 구축. MySQL 5.5에서 AWS Aurora PostgreSQL로의 DB 마이그레이션부터
+            신규 API 설계 · 화면 개발까지 풀스택으로 담당했습니다.
+            본 프로젝트의 결과물은 현재 기존 PHP 시스템과 통합되어 실서비스에 운영 중입니다.
+          </p>
+
+          <div class="case-viz" data-viz="donuts">
+            <div class="case-viz-label">
+              <span>풀스택 작업 범위</span>
+              <span class="highlight">3개 영역 동시 진행</span>
+            </div>
+            <div class="viz-stats">
+              <div class="viz-stat">
+                <div class="viz-donut">
+                  <svg viewBox="0 0 100 100" aria-hidden="true">
+                    <circle class="viz-donut-track" cx="50" cy="50" r="40"></circle>
+                    <circle class="viz-donut-fill" cx="50" cy="50" r="40" data-progress="80"></circle>
+                  </svg>
+                  <div class="viz-donut-center">
+                    <span class="viz-donut-num">200<span style="color: var(--accent);">+</span></span>
+                    <span class="viz-donut-unit">tables</span>
+                  </div>
+                </div>
+                <span class="viz-stat-label">DB 마이그레이션<br /><span style="opacity:0.7;font-weight:400;">10만+ rows</span></span>
+              </div>
+              <div class="viz-stat">
+                <div class="viz-donut">
+                  <svg viewBox="0 0 100 100" aria-hidden="true">
+                    <circle class="viz-donut-track" cx="50" cy="50" r="40"></circle>
+                    <circle class="viz-donut-fill" cx="50" cy="50" r="40" data-progress="65"></circle>
+                  </svg>
+                  <div class="viz-donut-center">
+                    <span class="viz-donut-num">50<span style="color: var(--accent);">+</span></span>
+                    <span class="viz-donut-unit">endpoints</span>
+                  </div>
+                </div>
+                <span class="viz-stat-label">신규 API</span>
+              </div>
+              <div class="viz-stat">
+                <div class="viz-donut">
+                  <svg viewBox="0 0 100 100" aria-hidden="true">
+                    <circle class="viz-donut-track" cx="50" cy="50" r="40"></circle>
+                    <circle class="viz-donut-fill" cx="50" cy="50" r="40" data-progress="50"></circle>
+                  </svg>
+                  <div class="viz-donut-center">
+                    <span class="viz-donut-num">10<span style="color: var(--accent);">+</span></span>
+                    <span class="viz-donut-unit">pages</span>
+                  </div>
+                </div>
+                <span class="viz-stat-label">신규 UI</span>
+              </div>
+            </div>
+          </div>
+
+          <footer class="case-footer">
+            <div class="case-stack">
+              <span class="tag">Java 17</span>
+              <span class="tag">Spring Boot 3.5</span>
+              <span class="tag">React 18.3 + TS 5.8</span>
+              <span class="tag">React Query</span>
+              <span class="tag">AWS Aurora</span>
+              <span class="tag">PostgreSQL</span>
+            </div>
+            <span class="case-takeaway">→ 핵심 기능 30% 모던 스택 전환 · 실서비스 운영 중</span>
+          </footer>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="section-label">
+        <span class="section-num">03</span>
+        <span class="section-title">Skills · Tech Stack</span>
+      </div>
+      <div class="skills-grid reveal-stagger">
+        <div class="skill-group">
+          <div class="skill-group-header">
+            <h4 class="skill-group-title">Backend</h4>
+            <span class="skill-group-count">13 skills</span>
+          </div>
+          <div class="skill-list">
+            <span class="skill-tag primary">Java 17</span>
+            <span class="skill-tag primary">Spring Boot 3.5</span>
+            <span class="skill-tag">Spring Framework</span>
+            <span class="skill-tag">Spring Data JPA</span>
+            <span class="skill-tag">Spring Security</span>
+            <span class="skill-tag primary">PHP 5.5</span>
+            <span class="skill-tag">C# · .NET Framework</span>
+            <span class="skill-tag">.NET Core</span>
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">FastAPI</span>
+            <span class="skill-tag">REST API</span>
+            <span class="skill-tag">JWT · OAuth 2.0</span>
+            <span class="skill-tag">MyBatis</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-header">
+            <h4 class="skill-group-title">Frontend</h4>
+            <span class="skill-group-count">10 skills</span>
+          </div>
+          <div class="skill-list">
+            <span class="skill-tag primary">React 18.3</span>
+            <span class="skill-tag primary">TypeScript 5.8</span>
+            <span class="skill-tag">Next.js</span>
+            <span class="skill-tag">React Query</span>
+            <span class="skill-tag">Zustand · Redux</span>
+            <span class="skill-tag">JavaScript (ES6+)</span>
+            <span class="skill-tag">jQuery</span>
+            <span class="skill-tag">SPFx</span>
+            <span class="skill-tag">HTML5 · CSS3</span>
+            <span class="skill-tag">Bootstrap</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-header">
+            <h4 class="skill-group-title">Database</h4>
+            <span class="skill-group-count">7 skills</span>
+          </div>
+          <div class="skill-list">
+            <span class="skill-tag primary">MySQL 5.5</span>
+            <span class="skill-tag primary">MSSQL</span>
+            <span class="skill-tag">AWS Aurora PostgreSQL</span>
+            <span class="skill-tag">PostgreSQL</span>
+            <span class="skill-tag">MariaDB</span>
+            <span class="skill-tag">Neo4j</span>
+            <span class="skill-tag">Redis</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-header">
+            <h4 class="skill-group-title">Infra · DevOps</h4>
+            <span class="skill-group-count">9 skills</span>
+          </div>
+          <div class="skill-list">
+            <span class="skill-tag primary">AWS (EC2 · RDS · S3)</span>
+            <span class="skill-tag">Microsoft Azure</span>
+            <span class="skill-tag">Docker</span>
+            <span class="skill-tag">Linux · Ubuntu</span>
+            <span class="skill-tag">NGINX</span>
+            <span class="skill-tag">Gradle</span>
+            <span class="skill-tag">cron · Slack Webhook</span>
+            <span class="skill-tag">Git · GitHub Actions</span>
+            <span class="skill-tag">SVN · Azure DevOps</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAREER -->
+    <section id="career">
+      <div class="section-label">
+        <span class="section-num">04</span>
+        <span class="section-title" id="careerTotal">Career</span>
+      </div>
+      <div class="timeline reveal-stagger">
+        <div class="career-item current">
+          <div class="career-dot"></div>
+          <div class="career-content">
+            <div class="career-period">2025.07 — Present <span class="badge">CURRENT</span></div>
+            <h3 class="career-company">㈜ 316존</h3>
+            <div class="career-role">개발팀 · 선임연구원/팀원 · 풀스택 개발</div>
+            <p class="career-summary">PHP 5.5 기반 레거시 의료 CRM 백오피스 유지보수, Spring Boot · React 차세대 시스템 신규 구축, AI 챗봇 인프라 운영을 동시에 담당. MySQL ↔ MSSQL 이종 시스템 동기화, AWS 인스턴스 스케일업 등 운영 안정화 작업을 주도.</p>
+          </div>
+        </div>
+        <div class="career-item">
+          <div class="career-dot"></div>
+          <div class="career-content">
+            <div class="career-period">2025.06 — 2025.07 · 2 mo</div>
+            <h3 class="career-company">에스씨301의원</h3>
+            <div class="career-role">개발팀 · 선임연구원/팀원 · 웹개발</div>
+            <p class="career-summary">의료 CRM 레거시 시스템 유지보수와 차세대 시스템(Spring Boot · React) 신규 구축을 함께 담당 (이후 신설 법인 인력 재배치로 ㈜316존 이관).</p>
+          </div>
+        </div>
+        <div class="career-item">
+          <div class="career-dot"></div>
+          <div class="career-content">
+            <div class="career-period">2023.03 — 2024.09 · 1 yr 7 mo</div>
+            <h3 class="career-company">㈜ 티디지</h3>
+            <div class="career-role">SD팀 · 사원/팀원 · 웹개발</div>
+            <p class="career-summary">React + SPFx 기반 Microsoft Teams 조직도 솔루션과 Azure Billing Portal (Terrace) 고도화 프로젝트를 담당. 클라우드 환경 서비스 운영, 데이터 시각화, 권한 관리 등 엔터프라이즈 프론트엔드 영역 전반을 수행.</p>
+          </div>
+        </div>
+        <div class="career-item">
+          <div class="career-dot"></div>
+          <div class="career-content">
+            <div class="career-period">2021.06 — 2023.03 · 1 yr 10 mo</div>
+            <h3 class="career-company">㈜ 자이소프트</h3>
+            <div class="career-role">클라우드 애플리케이션팀 · 사원/팀원 · 웹개발</div>
+            <p class="career-summary">.NET Framework + IIS 환경에서 Microsoft Teams · Outlook Plugin 기반 조직도, 대용량 첨부파일, MIP 문서보안, SaaS 그룹웨어 등 엔터프라이즈 솔루션을 다수 개발. OAuth 2.0 인증, SharePoint 연동, MS Graph API 활용 경험.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ALL PROJECTS -->
+    <section id="projects">
+      <div class="section-label">
+        <span class="section-num">05</span>
+        <span class="section-title">All Projects · 12</span>
+      </div>
+      <div class="project-filters reveal">
+        <button class="filter-btn active" data-filter="all">All <span class="filter-count">(12)</span></button>
+        <button class="filter-btn" data-filter="316john">316존 <span class="filter-count">(4)</span></button>
+        <button class="filter-btn" data-filter="tdg">티디지 <span class="filter-count">(2)</span></button>
+        <button class="filter-btn" data-filter="zai">자이소프트 <span class="filter-count">(6)</span></button>
+      </div>
+      <div class="projects-list" id="projectsList"></div>
+    </section>
+
+    <!-- BEYOND WORK -->
+    <section id="beyond">
+      <div class="section-label">
+        <span class="section-num">06</span>
+        <span class="section-title">Beyond Work · Bootcamp Projects</span>
+      </div>
+
+      <p class="projects-intro reveal" style="margin-bottom:32px;">
+        Java/Spring 생태계 전환 학습 결과로 진행한 부트캠프 팀 프로젝트.
+        실서비스 배포까지 완료한 작업물이며, GitHub 코드 공개 및 라이브 URL 접속이 가능합니다.
+      </p>
+
+      <div class="reveal-stagger">
+
+        <!-- meet U -->
+        <article class="beyond-card">
+          <div class="beyond-header">
+            <span class="beyond-tag">Bootcamp · Team Project</span>
+            <span class="beyond-period">2025.03 — 2025.04 · 4주 · 6명</span>
+          </div>
+          <h3 class="beyond-title">meet U — AI 기반 커리어 매칭 플랫폼</h3>
+          <p class="beyond-subtitle">
+            구직자와 기업의 니즈를 데이터 기반으로 연결하는 AI 커리어 매칭 플랫폼.
+            FastAPI 추천 시스템과 JWT 인증 구조 설계, 전체 페이지 흐름 구현을 주도했습니다.
+          </p>
+
+          <div class="beyond-arch">
+            <div class="beyond-arch-label">System Architecture</div>
+            <img src="meetu_architecture.jpg" alt="meet U 시스템 아키텍처" loading="lazy" />
+          </div>
+
+          <div class="beyond-body">
+            <div class="beyond-block">
+              <h5>주요 담당 기능</h5>
+              <ul class="beyond-roles">
+                <li>
+                  <strong>FastAPI 기반 추천 공고 API 구현</strong>
+                  사용자 프로필(스킬·직무·지역·연봉) 기반 개인 맞춤 추천 API 설계
+                </li>
+                <li>
+                  <strong>JWT 기반 인증 / 인가 처리</strong>
+                  JWT 기반 토큰 발급/검증 + 인증/인가 로직 분리 구현
+                </li>
+                <li>
+                  <strong>소셜 로그인 (OAuth2)</strong>
+                  카카오 · 구글 · 네이버 OAuth2 연동 + 사용자 정보 처리
+                </li>
+                <li>
+                  <strong>전체 페이지 흐름 설계</strong>
+                  React + Next.js 기반 프론트엔드 전체 화면 설계 및 API 연동 주도
+                </li>
+                <li>
+                  <strong>실시간 알림 시스템</strong>
+                  지원 상태 변화 등 주요 이벤트 기반 실시간 알림 전송 기능 구현
+                </li>
+              </ul>
+            </div>
+
+            <div class="beyond-block">
+              <h5>프로젝트 정보</h5>
+              <div class="beyond-info">
+                <div class="beyond-info-row">
+                  <span class="key">Backend</span>
+                  <span class="val"><a href="https://github.com/dpdlcl01/meet-u-career-backend" target="_blank" rel="noopener">github · backend ↗</a></span>
+                </div>
+                <div class="beyond-info-row">
+                  <span class="key">AI</span>
+                  <span class="val"><a href="https://github.com/dpdlcl01/meet-u-career-ai" target="_blank" rel="noopener">github · ai ↗</a></span>
+                </div>
+                <div class="beyond-info-row">
+                  <span class="key">Frontend</span>
+                  <span class="val"><a href="https://github.com/dpdlcl01/meet-u-career-frontend" target="_blank" rel="noopener">github · frontend ↗</a></span>
+                </div>
+                <div class="beyond-info-row">
+                  <span class="key">Stack</span>
+                  <span class="val">
+                    <div class="beyond-stack">
+                      <span class="tag">Java 17</span>
+                      <span class="tag">Spring Boot 3.1</span>
+                      <span class="tag">JPA</span>
+                      <span class="tag">QueryDSL</span>
+                      <span class="tag">Spring Security</span>
+                      <span class="tag">JWT</span>
+                      <span class="tag">Redis</span>
+                      <span class="tag">FastAPI</span>
+                      <span class="tag">Python</span>
+                      <span class="tag">OpenAI API</span>
+                      <span class="tag">React</span>
+                      <span class="tag">Next.js</span>
+                      <span class="tag">TypeScript</span>
+                      <span class="tag">MySQL</span>
+                      <span class="tag">AWS EC2</span>
+                      <span class="tag">Docker</span>
+                      <span class="tag">Nginx</span>
+                      <span class="tag">GitHub Actions</span>
+                    </div>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- MUSINSA -->
+        <article class="beyond-card">
+          <div class="beyond-header">
+            <span class="beyond-tag">Bootcamp · Team Project</span>
+            <span class="beyond-period">2025.01 — 2025.02 · 4주 · 6명</span>
+          </div>
+          <h3 class="beyond-title">MUSINSA — 쇼핑몰 웹 애플리케이션</h3>
+          <p class="beyond-subtitle">
+            무신사 앱의 핵심 기능과 흐름을 웹 기반으로 재현한 클론 쇼핑몰.
+            JSP · MyBatis 기반으로 로그인부터 주문 완료까지 전체 구매 흐름을 구현하고, DB 설계 및 화면 구성을 담당했습니다.
+          </p>
+
+          <div class="beyond-arch">
+            <div class="beyond-arch-label">System Architecture</div>
+            <img src="musinsa_architecture.jpg" alt="MUSINSA 시스템 아키텍처" loading="lazy" />
+          </div>
+
+          <div class="beyond-body">
+            <div class="beyond-block">
+              <h5>주요 담당 기능</h5>
+              <ul class="beyond-roles">
+                <li>
+                  <strong>로그인 / 회원가입</strong>
+                  bcrypt 비밀번호 암호화, 입력값 유효성 검사, 예외 처리를 통한 안정적 인증 기능 구현
+                </li>
+                <li>
+                  <strong>장바구니 기능</strong>
+                  수량 변경 등 상태는 DB로 관리, 결제 단계에서는 세션 활용한 정보 처리 구조 설계
+                </li>
+                <li>
+                  <strong>결제 처리 (쿠폰 · 적립금 포함)</strong>
+                  적립금/쿠폰 사용 로직 + 카카오페이 API 연동으로 결제 요청부터 완료까지 전체 흐름 구축
+                </li>
+                <li>
+                  <strong>마이페이지 구성</strong>
+                  프로필 수정, 비밀번호 변경, 배송지 관리 등 사용자 정보 관리 기능 설계 및 DB 연동
+                </li>
+                <li>
+                  <strong>상품 상세 페이지</strong>
+                  MyBatis를 활용한 상품 상세 정보 동적 로딩 로직 구현
+                </li>
+              </ul>
+            </div>
+
+            <div class="beyond-block">
+              <h5>프로젝트 정보</h5>
+              <div class="beyond-info">
+                <div class="beyond-info-row">
+                  <span class="key">GitHub</span>
+                  <span class="val"><a href="https://github.com/000flag/shop" target="_blank" rel="noopener">github.com/000flag/shop ↗</a></span>
+                </div>
+                <div class="beyond-info-row">
+                  <span class="key">Pattern</span>
+                  <span class="val">MVC 기반 구조로 화면 · 로직 · 데이터 분리하여 유지보수성 향상</span>
+                </div>
+                <div class="beyond-info-row">
+                  <span class="key">Stack</span>
+                  <span class="val">
+                    <div class="beyond-stack">
+                      <span class="tag">Java</span>
+                      <span class="tag">Servlet</span>
+                      <span class="tag">JSP</span>
+                      <span class="tag">MyBatis</span>
+                      <span class="tag">JavaScript</span>
+                      <span class="tag">HTML/CSS</span>
+                      <span class="tag">MySQL</span>
+                      <span class="tag">AWS EC2</span>
+                      <span class="tag">AWS S3</span>
+                      <span class="tag">KAKAO 결제 API</span>
+                    </div>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+      <div class="section-label">
+        <span class="section-num">07</span>
+        <span class="section-title">Education · Certificate</span>
+      </div>
+      <div class="edu-grid reveal-stagger">
+        <div class="edu-block">
+          <h4>학력</h4>
+          <div class="edu-item">
+            <div class="edu-period">2022.02 — 2024.02</div>
+            <div class="edu-title">서울사이버대학교 · 컴퓨터공학과</div>
+            <div class="edu-org">편입 / 졸업</div>
+            <div class="edu-extra">학점 4.34 / 4.5</div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-period">2013.03 — 2015.02</div>
+            <div class="edu-title">영진전문대학 · 사회복지과</div>
+            <div class="edu-org">졸업</div>
+            <div class="edu-extra">학점 4.24 / 4.5</div>
+          </div>
+        </div>
+        <div class="edu-block">
+          <h4>교육이수 · 자격</h4>
+          <div class="edu-item">
+            <div class="edu-period">2024.10 — 2025.04</div>
+            <div class="edu-title">Java Full-Stack 개발자 양성과정</div>
+            <div class="edu-org">쌍용교육센터 · AWS, Docker, Kubernetes 기반</div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-period">2020.11 — 2021.06</div>
+            <div class="edu-title">통합 응용 SW 개발자 (C# · Java)</div>
+            <div class="edu-org">경북산업직업전문학교</div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-period">2026.04</div>
+            <div class="edu-title">리눅스마스터 2급</div>
+            <div class="edu-org">한국정보통신인력개발센터 · 최종합격</div>
+          </div>
+          <div class="edu-item">
+            <div class="edu-period">2025.04</div>
+            <div class="edu-title">SQLD · SQL 개발자 자격</div>
+            <div class="edu-org">한국데이터베이스진흥센터 · 최종합격</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="contact">
+      <div class="reveal">
+        <div class="contact-tag">Get in touch</div>
+        <h2 class="contact-title">
+          좋은 시스템은<br />
+          좋은 <em>협업</em>에서 시작됩니다.
+        </h2>
+        <div class="contact-links">
+          <a class="contact-link" href="mailto:illu9856@gmail.com">
+            <span class="label">Email</span>
+            <span class="value">illu9856@gmail.com</span>
+          </a>
+          <a class="contact-link" href="https://github.com/000flag" target="_blank" rel="noopener">
+            <span class="label">GitHub</span>
+            <span class="value">github.com/000flag ↗</span>
+          </a>
+        </div>
+      </div>
+      <footer>
+        <div class="ascii">/ / / / / / / / / / / / / / / / / / / / / / / /</div>
+        © 2026 양화영 · Built with care.
+      </footer>
+    </section>
+
+  </main>
+</div>
+
+<!-- SIDE PANEL (Project Details) -->
+<div class="panel-overlay" id="panelOverlay"></div>
+<aside class="side-panel" id="sidePanel" role="dialog" aria-label="프로젝트 상세 정보">
+  <button class="panel-close" id="panelClose" aria-label="닫기">×</button>
+  <div class="panel-content" id="panelContent"></div>
+  <div class="panel-nav">
+    <button class="panel-nav-btn" id="panelPrev" aria-label="이전 프로젝트">← Prev</button>
+    <span class="panel-nav-counter" id="panelCounter"></span>
+    <button class="panel-nav-btn" id="panelNext" aria-label="다음 프로젝트">Next →</button>
+  </div>
+</aside>
+
+<script>
+// Auto-calculate total career duration
+// 각 회사의 실제 근무 개월 수를 단순 합산 (이력서 관행과 일치)
+(function updateCareerDuration() {
+  const periods = [
+    { start: '2021-06', end: '2023-03' }, // 자이소프트 (1년 10개월 = 22개월)
+    { start: '2023-03', end: '2024-09' }, // 티디지 (1년 7개월 = 19개월)
+    { start: '2025-06', end: '2025-07' }, // 에스씨301의원 (2개월)
+    { start: '2025-07', end: null }       // 316존 (재직중)
+  ];
+
+  function monthsBetween(start, end) {
+    const [sy, sm] = start.split('-').map(Number);
+    const [ey, em] = end.split('-').map(Number);
+    return (ey - sy) * 12 + (em - sm) + 1; // 양 끝 포함
+  }
+
+  const today = new Date();
+  const todayStr = today.getFullYear() + '-' + String(today.getMonth() + 1).padStart(2, '0');
+
+  let totalMonths = 0;
+  periods.forEach(p => {
+    const end = p.end || todayStr;
+    totalMonths += monthsBetween(p.start, end);
+  });
+
+  const years = Math.floor(totalMonths / 12);
+  const months = totalMonths % 12;
+
+  // Career 섹션 타이틀 업데이트
+  const el = document.getElementById('careerTotal');
+  if (el) {
+    el.textContent = `Career · ${years} yrs${months > 0 ? ' ' + months + ' mo' : ''}`;
+  }
+
+  // Hero 메트릭 / 태그 / 본문의 연차 숫자 업데이트
+  ['heroYears', 'heroTagYears', 'heroBodyYears'].forEach(id => {
+    const node = document.getElementById(id);
+    if (node) node.textContent = years;
+  });
+})();
+
+const projects = [
+  {
+    id: 1, company: '316john', companyLabel: '316존', featured: true,
+    title: 'SC301 의료 CRM 백오피스 시스템 유지보수 및 리팩토링',
+    period: '2025.06 — 현재', members: '2명', role: 'PHP 풀스택',
+    stack: ['PHP 5.5', 'JavaScript', 'jQuery', 'Bootstrap', 'MySQL 5.5', 'MSSQL', 'Cafe24 Hosting'],
+    detail: [
+      { title: '백오피스 운영 기능 유지보수', items: [
+        '고객 유입 랜딩 페이지 신규 개발 및 기존 페이지 개선',
+        'SQL 인젝션 방어 및 입력값 유효성 검사 강화',
+        '내부 고객 관리(CRM) 화면 기능 및 UI 개선',
+        '전화상담사 자동 배정 로직 개선 및 cron 기반 정기 재배정 스케줄러 구현',
+        'PHP 5.5 기반 레거시 코드 리팩토링'
+      ]},
+      { title: '이종 시스템 간 데이터 동기화', items: [
+        '자체 개발 백오피스(MySQL 5.5) ↔ 외부 CRM 솔루션(MSSQL) 간 고객 상태 동기화 로직 개선',
+        'cron 기반 배치 동기화 방식으로 데이터 정합성 강화 및 운영 이슈 해소'
+      ]},
+      { title: '일매출마감 시스템 개발 (1인 단독)', items: [
+        '일일 매출 집계 및 결제 방식별 통계 기능 구현',
+        'Excel 파일 다운로드 (다중 시트, 동적 페이지 구성)',
+        'MSSQL CTE 활용 쿼리 최적화',
+        '수작업 일일 마감 업무 자동화 (1시간+ → 5분 이내)'
+      ]},
+      { title: 'TM/CS 통계 시스템 개발', items: [
+        '텔레마케팅(TM) / 고객상담(CS) 부서별 실적 집계용 통계 화면 신규 구축',
+        '부서별 상담 실적 데이터 추출 및 시각화 쿼리 설계'
+      ]},
+      { title: '진료/휴진 관리 시스템 신규 구축', items: [
+        '기존 문제: 홈페이지마다 진료/휴진 일정이 하드코딩 — 일정 변경 시마다 개발자 개입 필요',
+        'DB 데이터 모델 설계: 기존 테이블 1개에 컬럼 1개 추가 + 신규 테이블 2개 생성',
+        '관리자 페이지 신규 기능 개발: 의사 추가, 의사–진료 과목 1:N 매핑, 일자별 진료/휴진 설정',
+        '기존 달력 UI 컴포넌트 디벨롭하여 의사별 / 일자별 진료·휴진 시각적 관리 기능 추가',
+        '홈페이지 하드코딩 제거 후 DB 연동으로 리팩토링',
+        '결과: 운영팀이 직접 일정 관리 가능 — 개발자 개입 없이 진료 일정 변경 처리'
+      ]}
+    ]
+  },
+  {
+    id: 12, company: '316john', companyLabel: '316존', featured: true,
+    title: 'AI 챗봇 인프라 비용 최적화 및 운영 환경 일원화',
+    period: '2026.03', members: '2명', role: '인프라 운영 · 환경 통합',
+    stack: ['AWS EC2', 'PHP 5.5', 'MySQL 5.5', 'jQuery', 'Cafe24 Hosting', 'Slack Webhook'],
+    detail: [
+      { title: '비용 최적화 (AWS 인스턴스 사양 재조정)', items: [
+        '이전에 도입된 AI 챗봇이 권장 사양 g5.2xlarge로 운영 중이었으나 AWS 과금 부담 누적',
+        'Slack Webhook으로 수집한 트래픽 모니터링 데이터 분석 — 권장 사양 대비 현저히 낮은 사용률 확인',
+        '1차: t3.large로 스케일다운 → 응답 지연 발생, 사용자 경험 저하 확인',
+        '2차: c6i.xlarge로 재조정 → 응답 속도 5초 내 안정화',
+        '결과: g5.2xlarge 대비 약 89% 비용 절감, 응답 품질 유지'
+      ]},
+      { title: '운영 환경 일원화 (이종 시스템 통합)', items: [
+        '기존 도입 시스템: 구버전 전자정부프레임워크 + JSP 기반',
+        '개발팀 인력 대비 이종 환경 운영 부담이 큰 상황 — 관리 포인트 2배',
+        '사내 표준 환경으로 컨버팅하여 운영 일원화',
+        '결과: 인력 효율 ↑, 유지보수 부담 감소, 비용 + 운영 통합 효과'
+      ]}
+    ]
+  },
+  {
+    id: 2, company: '316john', companyLabel: '316존', featured: true,
+    title: '의료 도메인 특화 AI 챗봇 서비스 개발',
+    period: '2026.02 — 2026.04', members: '2명', role: '챗봇 UI · 인프라 운영',
+    stack: ['PHP 5.5', 'JavaScript', 'Neo4j', 'MySQL 5.5', 'AWS EC2', 'Cafe24 Hosting', 'OpenAI GPT API', 'FastAPI', 'Slack Webhook'],
+    detail: [
+      { title: '듀얼 패널 챗봇 UI 개발 (PHP)', items: [
+        'Neo4j 엔진 API와 OpenAI GPT API 응답을 동시 비교 가능한 듀얼 패널 인터페이스 구현',
+        '사용자 입력 분기 처리 및 양 엔진 응답 동시 렌더링 로직 설계',
+        'OpenAI GPT API 연동 및 응답 처리 (GPT 평균 2초, Neo4j 평균 6초)'
+      ]},
+      { title: 'API 연동 및 스펙 협의', items: [
+        'Neo4j 알고리즘의 API 서비스화 방안 논의 및 FastAPI 도입 의사결정 참여',
+        '클라이언트 관점에서 응답 스키마 협의 및 개선 요청',
+        'UI 렌더링에 적합한 응답 구조 정제를 위한 백엔드 협업'
+      ]},
+      { title: '운영 인프라 모니터링 및 스케일업', items: [
+        'Slack Webhook 기반 Neo4j 서버 CPU 사용량 모니터링 체계 구축',
+        'CPU 점유율 80~90% 지속 현상을 데이터로 확인, 인스턴스 사양 부족 진단',
+        'AWS EC2 AMI 기반 t3.medium → c6i.large 스케일업 절차 수립 및 적용',
+        '안정화 이후 임계치(60%) 도달 시점 알림 방식으로 전환'
+      ]}
+    ]
+  },
+  {
+    id: 3, company: '316john', companyLabel: '316존', featured: true,
+    title: 'SC301 CRM 차세대 시스템 신규 구축',
+    period: '2025.06 — 2025.11', members: '2명', role: 'Spring Boot · React 풀스택',
+    stack: ['Java 17', 'Spring Boot 3.5', 'React 18.3', 'TypeScript 5.8', 'React Query', 'AWS Aurora PostgreSQL'],
+    detail: [
+      { title: 'DB 마이그레이션', items: [
+        'MySQL 5.5 → AWS Aurora PostgreSQL 이전 과정 참여 (1~1.5개월)',
+        '약 200여 개 테이블 중 중복 테이블 통합 및 구조 개선 지원',
+        '약 10만+ 데이터 diff 기반 데이터 검증 수행'
+      ]},
+      { title: 'Spring Boot 백엔드 개발', items: [
+        '신규 REST API 엔드포인트 50개 이상 설계 및 구현',
+        '기존 PHP 로직 분석 및 신규 시스템에 맞는 데이터 흐름 재설계',
+        '연동 테스트 및 검증 수행'
+      ]},
+      { title: 'React + TypeScript 프론트엔드 개발', items: [
+        '파일 업로더/미리보기, 동적 입력·검증 폼, 관리 대시보드 등 10개 이상 핵심 화면 구현',
+        '사내 공지 및 고객 대상 설문조사 등 운영성 페이지 개발',
+        'React Query 기반 서버 상태 관리 및 캐싱 전략 적용으로 API 호출 최적화',
+        'TypeScript 타입 시스템을 활용한 API 응답 모델링 및 런타임 오류 사전 방지'
+      ]}
+    ]
+  },
+  {
+    id: 4, company: 'tdg', companyLabel: '티디지', featured: false,
+    title: 'Teams 조직도 솔루션 (MS Teams Application)',
+    period: '2023.05 — 2024.09', members: '3명', role: '프론트엔드 · 배포',
+    stack: ['TypeScript', 'React', 'SPFx', 'MS-SQL', 'Azure', 'SharePoint', 'MS Graph API'],
+    detail: [
+      { title: '자체 솔루션 고도화', items: [
+        '입사 시점 모바일 버전 부재 — 모바일 반응형 UI 신규 구축',
+        '반응형 UI 개발 후 고객사 도입 (기존 PC 전용 솔루션의 모바일 확장)',
+        '추가 고객사 1곳에 UI/UX 커스텀 대응 후 도입',
+        '조직 구조 계층 설계 (대화상대, 계열사, 부서 등 포함)'
+      ]},
+      { title: '공통 기능 개발', items: [
+        '조직 데이터 초기 등록 자동화 처리',
+        'MS Graph API 및 SharePoint API 연동',
+        'Azure AD 기반 인증 및 MS Graph API 연동 (SPFx 자동 인증 흐름 활용)',
+        'SPFx 앱 SharePoint Online 배포 및 운영'
+      ]}
+    ]
+  },
+  {
+    id: 5, company: 'tdg', companyLabel: '티디지', featured: false,
+    title: 'Terrace 고도화 프로젝트 (Azure Billing Portal)',
+    period: '2023.07 — 2024.07', members: '4명', role: '프론트엔드',
+    stack: ['TypeScript', 'React', '.NET Core', 'Chart.js', 'Azure'],
+    detail: [
+      { title: '인증 · 권한 관리', items: [
+        'Azure Entra Guest 초대 및 외부 사용자 온보딩 흐름 구현',
+        '포털 로그인 인증 및 인가 처리 구성',
+        '전체 관리자 → 그룹별 권한 관리 메뉴 구성 — 조직 단위 접근 제어 지원'
+      ]},
+      { title: '데이터 시각화 · 과금 현황', items: [
+        'Chart.js 기반 다양한 차트 컴포넌트 구현 (페이지별 적합한 시각화 형태 적용)',
+        'Azure 리소스 사용량 및 과금 데이터 시각화로 관리자 의사결정 지원',
+        '테넌트 데이터 초기 등록 자동화 처리'
+      ]},
+      { title: '파일 입출력 · 보고서', items: [
+        'Excel 다중 시트 출력 기능 구현 — 관리자 보고서 생성 자동화',
+        'Azure Blob Storage 기반 파일 업·다운로드 처리 (AWS S3 대응 클라우드 스토리지)',
+        '파일 업로드 진행률 표시 및 에러 핸들링 UX 개선'
+      ]},
+      { title: 'UX · 반응형', items: [
+        '반응형 웹 UI 설계 및 개발 (PC/태블릿/모바일 대응)',
+        '사용자 시나리오 기반 화면 레이아웃 재설계',
+        'TypeScript 타입 시스템 활용한 API 응답 모델링'
+      ]}
+    ]
+  },
+  {
+    id: 6, company: 'zai', companyLabel: '자이소프트', featured: false,
+    title: 'Teams 조직도 솔루션 (MS Teams Application)',
+    period: '2021.09 — 2023.02', members: '2명', role: '풀스택 · 배포',
+    stack: ['JavaScript', 'C#', '.NET Framework', 'IIS', 'Azure', 'MS Graph API'],
+    detail: [
+      { title: '다수 고객사 맞춤 도입', items: [
+        '동일 솔루션을 다수 고객사에 도입 — 고객사별 요구사항에 맞춰 기능 커스터마이징 진행',
+        '고객사별 추가 기능 대응:<br>&nbsp;&nbsp;&nbsp;· Outlook 연동 메일 기능 통합<br>&nbsp;&nbsp;&nbsp;· 팀즈 채널별 멤버 관리 기능<br>&nbsp;&nbsp;&nbsp;· 팀즈 팁링크 연결 기능<br>&nbsp;&nbsp;&nbsp;· 고객사별 UI/UX 차별화 (브랜딩, 레이아웃, 컬러)'
+      ]},
+      { title: '공통 기능 개발', items: [
+        '인사 시스템 연동 기반 조직도 및 계열사/부서 구조 설계 및 구현',
+        'MS Graph API 연동 (자체 OAuth 2.0 라이브러리 활용)',
+        '조직 데이터 초기 등록 자동화 처리 (고객사당 100명+ 사용자 규모)',
+        '조직 제외 처리, 중복 확인, 그룹화 API 설계',
+        'IIS 환경에서 App 배포 및 운영'
+      ]}
+    ]
+  },
+  {
+    id: 7, company: 'zai', companyLabel: '자이소프트', featured: false,
+    title: 'Outlook 조직도 및 메일 클라우드 솔루션',
+    period: '2022.11 — 2023.01', members: '2명', role: '풀스택 · 배포',
+    stack: ['JavaScript', 'C#', '.NET Framework', 'IIS', 'Azure', 'Outlook Plugin'],
+    detail: [
+      { title: '조직도 UI · 탐색 기능', items: [
+        'Outlook Add-in Pane 기반 조직도 트리 UI 구현',
+        '트리 탐색 기반 부서 찾기 기능 — 부서/계열사 계층 구조 따라 빠르게 이동',
+        '인사 DB 연동을 통한 조직 구성원 실시간 표시',
+        'Outlook Add-in 인터페이스 제약사항(좁은 가로폭)에 최적화된 UI 설계'
+      ]},
+      { title: '사용자 연락 · 근태 연동', items: [
+        '조직도 사용자 클릭 시 액션 메뉴 표시 — 이메일 / 전화 / SMS 선택 가능',
+        '선택 액션에 맞춰 Outlook 메일 작성, 전화 연결, SMS 발송 흐름으로 자동 연결',
+        '사용자 근태 정보 연동 — 부재중/외근 상태 조직도에 표시'
+      ]},
+      { title: '관리자 기능', items: [
+        '관리자 페이지 내 조직도 제외 처리 관리 기능 구축',
+        'MS Graph API 연동 (자체 OAuth 2.0 라이브러리 활용)',
+        'IIS 환경 배포 및 운영'
+      ]}
+    ]
+  },
+  {
+    id: 9, company: 'zai', companyLabel: '자이소프트', featured: false,
+    title: '대용량 첨부파일 솔루션 (Outlook Plugin)',
+    period: '2022.11 — 2023.01', members: '2명', role: '풀스택 · 배포',
+    stack: ['JavaScript', 'C#', '.NET Framework', 'IIS', 'NAS', 'Outlook Plugin'],
+    detail: [
+      { title: '대용량 파일 처리 인프라', items: [
+        '고객사 NAS 기반 첨부파일 업로드 경로 설계 및 처리 로직 구현',
+        '대용량 파일 업로드 지원 — 일반 메일 첨부 한계 극복',
+        '파일 업/다운로드/삭제 전체 라이프사이클 처리 프로세스 개발',
+        '다운로드 링크 10일 유효기간 자동 만료 처리'
+      ]},
+      { title: '보안 · 인증', items: [
+        '인증 기반 다운로드 보안 — 관리자 정책에 따라 적용 가능',
+        '관리자 페이지에서 인증 사용/미사용 정책 설정 — 다중 검증 단계 흐름 구현',
+        '수신자 정보 검증 및 인증 상태 추적'
+      ]},
+      { title: '관리자 기능', items: [
+        '관리자 페이지 내 첨부 이력 확인 화면 구성',
+        '파일 사용 현황 및 만료 상태 모니터링',
+        'Outlook Add-in 내 웹메일 연동으로 사용자 친화적 UX 구현'
+      ]}
+    ]
+  },
+  {
+    id: 8, company: 'zai', companyLabel: '자이소프트', featured: false,
+    title: '공유파일 앱 고도화 (Teams 연동 파일 공유 솔루션)',
+    period: '2021.12 — 2022.09', members: '2명', role: '풀스택 · 배포',
+    stack: ['JavaScript', 'C#', '.NET Framework', 'IIS', 'SharePoint API', 'MS Graph API'],
+    detail: [
+      { title: '부서별 DRM 정책 처리', items: [
+        '부서별 DRM 적용 조건 설정 및 처리 로직 구현',
+        '문서 업/다운로드 시 DRM 자동 씌우기/해제 기능 개발',
+        '부서별 차등 보안 정책 — 동일 시스템에서 부서마다 다른 보호 수준 적용'
+      ]},
+      { title: 'Teams · SharePoint 연동', items: [
+        'Teams 내 부서 간 파일 공유 UI 기능 설계',
+        'SharePoint 사이트 / 문서 라이브러리 연동을 통한 부서별 파일 관리',
+        '문서 링크 복사 / 이름 변경 / SharePoint 직접 연동 기능 구현'
+      ]},
+      { title: '비공개 채널 가시성 개선 (고도화 핵심)', items: [
+        '고도화 전: 공유파일 앱이 Teams 비공개 채널 미연동 — 비공개 채널 파일 표시 불가',
+        '고도화 작업: 비공개 채널까지 연동 처리하여 가시성 확보',
+        '결과: 부서/조직 단위 모든 채널 파일 통합 관리 가능',
+        '사용자 UX 기반 고도화 및 커스터마이징'
+      ]},
+      { title: 'MS Graph API · SharePoint API 신규 연동', items: [
+        '기존 솔루션에 없던 다양한 신규 기능 추가를 위해 MS Graph API · SharePoint API 직접 연동',
+        '문서 라이브러리 조회·조작, 채널 멤버 관리, 권한 동기화 등 다양한 영역 활용',
+        'MS 공식 문서 기반 자기주도 학습으로 두 API의 동작 원리와 권한 모델 깊이 이해',
+        '결과: Microsoft 365 생태계 API 전문성 확보 — 이후 다른 프로젝트에도 직접 활용 가능한 수준'
+      ]}
+    ]
+  },
+  {
+    id: 10, company: 'zai', companyLabel: '자이소프트', featured: false,
+    title: 'MIP 솔루션 (문서보안 정책 기반 파일 보호 시스템)',
+    period: '2022.07', members: '2명', role: '프론트엔드',
+    stack: ['JavaScript', 'C#', '.NET Framework', 'IIS', 'Azure'],
+    detail: [
+      { title: '보안 정책 관리', items: [
+        '관리자 페이지 내 보안 정책 설정 기능 개발',
+        '보안 정책 종류: DRM, MIP 라벨(Public · Confidential · Highly Confidential 등), 평문',
+        '단순 DRM이 아닌 정책 기반 다층 보호 체계 커스터마이징'
+      ]},
+      { title: '부서 · 상황별 차등 정책', items: [
+        '부서별 차등 보안 정책 적용 — 부서마다 다른 보호 수준 설정 가능',
+        '상황별(트리거) 조건 대응 문서 정책 로직 설계 및 구현',
+        '관리자 UI 기반 정책 조합 설정 — 복잡한 보안 시나리오 시각적 구성'
+      ]},
+      { title: '자동 암호화 · 복호화', items: [
+        '파일 업로드 시 정책 기반 자동 암호화 처리',
+        '파일 다운로드 시 권한 검증 및 자동 복호화 처리',
+        '사용자에게 투명한(transparent) 보호 적용 — 별도 액션 없이 보안 자동 적용'
+      ]}
+    ]
+  },
+  {
+    id: 11, company: 'zai', companyLabel: '자이소프트', featured: false,
+    title: 'SaaS형 그룹웨어 관리자 페이지 개선',
+    period: '2021.08 — 2021.09', members: '1명', role: '프론트엔드',
+    stack: ['JavaScript', 'C#', '.NET Framework', 'IIS'],
+    detail: [
+      { title: '템플릿 관리 기능 추가', items: [
+        '근무 / 휴일 달력 템플릿 관리 페이지 개선',
+        '주말 / 공휴일 제외 처리 로직 추가 — 실제 근무일 기반 자동 산출',
+        '관리자 사용 편의를 고려한 UI 개선'
+      ]},
+      { title: '게시판 · 라이선스 관리', items: [
+        '게시판 목록에 첨부 이미지 썸네일 표시 기능 신규 추가 (기존 미지원)',
+        '그룹웨어 라이선스 사용자 수 관리 기능 구현',
+        '라이선스 활용 현황 시각화 — 관리자가 한눈에 사용 현황 파악'
+      ]},
+      { title: '인가(Authorization) 처리 보완', items: [
+        '관리자 페이지 내 인가 처리 누락 페이지 식별 및 보완',
+        '권한 없는 사용자의 직접 URL 접근 차단 로직 강화',
+        '내부 관리 규칙 반영한 권한 체계 정비'
+      ]}
+    ]
+  }
+];
+
+function renderProjects() {
+  const list = document.getElementById('projectsList');
+  list.innerHTML = projects.map((p, idx) => `
+    <article class="project ${p.featured ? 'featured-marker' : ''}" data-company="${p.company}" data-id="${p.id}">
+      <div class="project-num">P / ${String(idx + 1).padStart(2,'0')}</div>
+      <div class="project-main">
+        <div class="project-title-row">
+          <h3 class="project-title">
+            ${p.featured ? '<span class="featured-tag">Featured</span>' : ''}${p.title}
+          </h3>
+        </div>
+        <div class="project-meta">
+          <span>${p.companyLabel}</span><span class="dot"></span>
+          <span>${p.period}</span><span class="dot"></span>
+          <span>${p.members}</span><span class="dot"></span>
+          <span>${p.role}</span>
+        </div>
+      </div>
+      <div class="project-action">View →</div>
+    </article>
+  `).join('');
+
+  list.querySelectorAll('.project').forEach(el => {
+    el.addEventListener('click', () => {
+      const id = parseInt(el.dataset.id);
+      openPanel(id);
+    });
+  });
+}
+renderProjects();
+
+// SIDE PANEL LOGIC
+const panelOverlay = document.getElementById('panelOverlay');
+const sidePanel = document.getElementById('sidePanel');
+const panelContent = document.getElementById('panelContent');
+const panelPrev = document.getElementById('panelPrev');
+const panelNext = document.getElementById('panelNext');
+const panelCounter = document.getElementById('panelCounter');
+const panelClose = document.getElementById('panelClose');
+
+let currentProjectId = null;
+
+function getVisibleProjects() {
+  return projects.filter(p => {
+    const el = document.querySelector(`.project[data-id="${p.id}"]`);
+    return el && el.dataset.hidden !== 'true';
+  });
+}
+
+function openPanel(id) {
+  const project = projects.find(p => p.id === id);
+  if (!project) return;
+
+  currentProjectId = id;
+
+  // Update active state
+  document.querySelectorAll('.project').forEach(el => {
+    el.classList.toggle('active', parseInt(el.dataset.id) === id);
+  });
+
+  // Render content
+  panelContent.innerHTML = `
+    <span class="panel-tag ${project.featured ? '' : 'gray'}">
+      ${project.featured ? 'Featured Case · ' + project.companyLabel : project.companyLabel + ' · Project'}
+    </span>
+    <h2 class="panel-title">${project.title}</h2>
+    <div class="panel-meta">
+      <span>${project.period}</span><span class="dot"></span>
+      <span>${project.members}</span><span class="dot"></span>
+      <span>${project.role}</span>
+    </div>
+
+    <div class="panel-section">
+      <div class="panel-section-label">Tech Stack</div>
+      <div class="panel-stack">
+        ${project.stack.map(s => `<span class="tag">${s}</span>`).join('')}
+      </div>
+    </div>
+
+    <div class="panel-section">
+      <div class="panel-section-label">담당 역할 및 주요 기능</div>
+      <div class="panel-roles">
+        ${project.detail.map(d => `
+          <div class="panel-role">
+            <h6>${d.title}</h6>
+            <ul>
+              ${d.items.map(it => `<li>${it}</li>`).join('')}
+            </ul>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+
+  // Update navigation
+  const visible = getVisibleProjects();
+  const idx = visible.findIndex(p => p.id === id);
+  panelCounter.innerHTML = `<strong>${idx + 1}</strong> / ${visible.length}`;
+  panelPrev.disabled = idx === 0;
+  panelNext.disabled = idx === visible.length - 1;
+
+  // Open panel
+  panelOverlay.classList.add('open');
+  sidePanel.classList.add('open');
+  document.body.style.overflow = 'hidden';
+
+  // Reset scroll
+  panelContent.scrollTop = 0;
+}
+
+function closePanel() {
+  panelOverlay.classList.remove('open');
+  sidePanel.classList.remove('open');
+  document.body.style.overflow = '';
+  document.querySelectorAll('.project').forEach(el => el.classList.remove('active'));
+  currentProjectId = null;
+}
+
+function navigatePanel(direction) {
+  const visible = getVisibleProjects();
+  const idx = visible.findIndex(p => p.id === currentProjectId);
+  const newIdx = idx + direction;
+  if (newIdx >= 0 && newIdx < visible.length) {
+    openPanel(visible[newIdx].id);
+  }
+}
+
+panelClose.addEventListener('click', closePanel);
+panelOverlay.addEventListener('click', closePanel);
+panelPrev.addEventListener('click', () => navigatePanel(-1));
+panelNext.addEventListener('click', () => navigatePanel(1));
+
+document.addEventListener('keydown', (e) => {
+  if (!sidePanel.classList.contains('open')) return;
+  if (e.key === 'Escape') closePanel();
+  if (e.key === 'ArrowLeft') navigatePanel(-1);
+  if (e.key === 'ArrowRight') navigatePanel(1);
+});
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filter = btn.dataset.filter;
+    document.querySelectorAll('.project').forEach(p => {
+      if (filter === 'all' || p.dataset.company === filter) {
+        p.dataset.hidden = 'false';
+      } else {
+        p.dataset.hidden = 'true';
+      }
+    });
+    if (sidePanel.classList.contains('open')) closePanel();
+  });
+});
+
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in');
+      io.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.reveal, .reveal-stagger').forEach(el => io.observe(el));
+
+// Chart visualization animation observer
+const chartIo = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const viz = entry.target;
+      // Animate bars
+      viz.querySelectorAll('.viz-bar-fill').forEach(bar => {
+        const target = bar.dataset.target;
+        if (target) {
+          requestAnimationFrame(() => {
+            bar.style.width = target + '%';
+          });
+        }
+      });
+      // Animate donuts
+      viz.querySelectorAll('.viz-donut-fill').forEach(circle => {
+        const progress = parseFloat(circle.dataset.progress) || 0;
+        const circumference = 2 * Math.PI * 40; // r=40
+        const offset = circumference * (1 - progress / 100);
+        requestAnimationFrame(() => {
+          circle.style.strokeDashoffset = offset;
+        });
+      });
+      chartIo.unobserve(viz);
+    }
+  });
+}, { threshold: 0.3, rootMargin: '0px 0px -80px 0px' });
+
+document.querySelectorAll('.case-viz').forEach(el => chartIo.observe(el));
+
+// Hero metric count-up animation
+function animateCount(el, target, duration) {
+  const start = performance.now();
+  // easeOutExpo: 처음엔 빠르게, 끝에 천천히
+  const easeOut = (t) => t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
+
+  function step(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = easeOut(progress);
+    const current = Math.round(target * eased);
+    el.textContent = current;
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = target;
+  }
+  requestAnimationFrame(step);
+}
+
+const countIo = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const target = parseInt(el.dataset.countTarget || el.textContent, 10);
+      if (!isNaN(target)) {
+        // 메트릭 크기에 따라 duration 다르게: 큰 숫자는 더 오래
+        const duration = target > 10 ? 1100 : target > 5 ? 900 : 700;
+        animateCount(el, target, duration);
+      }
+      countIo.unobserve(el);
+    }
+  });
+}, { threshold: 0.5, rootMargin: '0px 0px -40px 0px' });
+
+// 카운트업 대상: heroYears (자동 계산 결과) + data-count-target 속성 가진 요소
+const heroYearsEl = document.getElementById('heroYears');
+if (heroYearsEl) {
+  // 자동 계산된 값을 data-count-target에 저장하고 텍스트는 0으로 시작
+  heroYearsEl.dataset.countTarget = heroYearsEl.textContent;
+  heroYearsEl.textContent = '0';
+  countIo.observe(heroYearsEl);
+}
+document.querySelectorAll('[data-count-target]').forEach(el => {
+  if (el.id !== 'heroYears') { // heroYears는 이미 등록됨
+    el.textContent = '0';
+    countIo.observe(el);
+  }
+});
+
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav a');
+const navIo = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      navLinks.forEach(l => {
+        l.classList.toggle('active', l.dataset.section === id);
+      });
+    }
+  });
+}, { threshold: 0.3, rootMargin: '-20% 0px -50% 0px' });
+
+sections.forEach(s => navIo.observe(s));
+</script>
+
+</body>
+</html>
